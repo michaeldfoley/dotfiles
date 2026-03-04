@@ -1,7 +1,10 @@
+@./work-AGENTS.md
+
 ## Style
 
 - Extremely concise. Sacrifice grammar for concision.
 - No em dashes (—). Use en dashes (–), semicolons, or restructure.
+- Avoid being overly enthusiastic/complimentary in responses.
 - Commit messages – single-line subject, no body. Let the diff speak.
 - Plans, all interactions – concise. End plans with unresolved questions, if any.
 
@@ -33,6 +36,7 @@
 - When working across repos, confirm target repo early.
 - After disruptions (tool rejection, context restore, mode switch), verify actual state (git status, git diff, ls) before retrying.
 - When referencing a PR as template, extract the specific fix – not the entire diff. PRs often bundle unrelated changes.
+- Scripts/tools go directly in final home (e.g., `~/.local/bin/`). INBOX.md is for ideas/friction – not finished artifacts.
 
 ## Modes
 

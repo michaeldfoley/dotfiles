@@ -1,4 +1,4 @@
-@./work-AGENTS.md
+@~/.agents/work-AGENTS.md
 
 ## Style
 

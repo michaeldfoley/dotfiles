@@ -30,6 +30,14 @@ Every skill declares what it modifies:
 - Don't duplicate workflows across skills – factor shared logic into a third skill or AGENTS.md.
 - One verb per skill. `/checkpoint` ships; `/retro` captures; don't merge them.
 
+## Lifecycle decisions
+
+**Adding overlaps existing:** decide retirement first. List overlaps explicitly; ask "what gets retired?" Otherwise: competing entry points and "which do I use when?" confusion.
+
+**Before retiring:** enumerate the skill's features – not just the primary one. Orthogonal capabilities get lost silently if the replacement doesn't cover them (e.g., new-project bootstrap inside a design-doc skill). Surface gaps before retiring.
+
+**Fold vs separate:** if a new skill's primary use case is a gate inside an existing skill, fold it as a step (e.g., /tidy → /checkpoint step 1). If it's also useful independently, keep separate (e.g., /document next to /walkthrough).
+
 ## Naming
 
 - Verb-first, kebab-case: `checkpoint`, `triage`, `proposal-template`.

@@ -11,6 +11,9 @@ Universal config that works on any machine. Machine-specific overlays stay local
 .claude/CLAUDE.md            # Claude Code config (@imports AGENTS.md + Claude-specific)
 .claude/settings.json        # Permissions allowlist (dontAsk), enabled plugins
 .claude/agents/              # Claude Code sub-agents (researcher, executor)
+.gemini/GEMINI.md            # Gemini CLI – @imports shared AGENTS.md
+.codex/config.toml.example   # Codex CLI starter (merge into ~/.codex/config.toml manually)
+.codex/review-instructions.md # Independent-reviewer instructions for Codex (produces review.md)
 templates/DESIGN.md          # Design doc template (used by /design command)
 install.sh                   # Sets up symlinks + installs fzf
 AGENTS.md                    # Repo-level agent instructions (this repo)

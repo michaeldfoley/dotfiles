@@ -29,6 +29,36 @@ PY
   fi
 }
 
+_toml_supported=""
+_detect_toml_support() {
+  python3 - >/dev/null 2>&1 <<'PY' && return 0
+try:
+    import tomllib  # Python 3.11+
+except ImportError:
+    import tomli as tomllib
+PY
+  return 1
+}
+
+_check_toml() {
+  local file="$1"
+  if python3 - "$file" >/dev/null 2>&1 <<'PY'
+import sys
+try:
+    import tomllib  # Python 3.11+
+except ImportError:
+    import tomli as tomllib
+
+with open(sys.argv[1], "rb") as fh:
+    tomllib.load(fh)
+PY
+  then
+    _pass "toml parses: ${file#"$REPO_ROOT"/}"
+  else
+    _fail "toml parses: ${file#"$REPO_ROOT"/}"
+  fi
+}
+
 echo "=== Workflows ==="
 
 workflow_files=()
@@ -68,6 +98,26 @@ else
   _pass "json files discovered: ${#json_files[@]}"
   for file in "${json_files[@]}"; do
     _check_json "$file"
+  done
+fi
+
+echo ""
+echo "=== TOML ==="
+
+toml_files=()
+while IFS= read -r -d '' file; do
+  [[ -f "$REPO_ROOT/$file" ]] || continue
+  toml_files+=("$REPO_ROOT/$file")
+done < <(git -C "$REPO_ROOT" ls-files -z -- '*.toml' '*.toml.example')
+
+if [[ ${#toml_files[@]} -eq 0 ]]; then
+  _skip "no toml files discovered"
+elif ! _detect_toml_support; then
+  _skip "toml parser not available (Python 3.11+ has tomllib; or pip install tomli)"
+else
+  _pass "toml files discovered: ${#toml_files[@]}"
+  for file in "${toml_files[@]}"; do
+    _check_toml "$file"
   done
 fi
 

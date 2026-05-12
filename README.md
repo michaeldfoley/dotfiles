@@ -5,13 +5,22 @@ Universal config that works on any machine. Machine-specific overlays stay local
 ## Structure
 
 ```
-.agents/AGENTS.md            # Shared agent instructions (cross-tool source of truth)
+.agents/AGENTS.md            # Shared agent instructions (always-loaded, behavioral)
+.agents/conventions/         # On-demand reference docs (loaded via AGENTS.md gate lines)
 .agents/skills/              # Agent skills (symlinked to ~/.agents/, ~/.claude/, ~/.cursor/)
 .claude/CLAUDE.md            # Claude Code config (@imports AGENTS.md + Claude-specific)
 templates/DESIGN.md          # Design doc template (used by /design command)
 install.sh                   # Sets up symlinks + installs fzf
 AGENTS.md                    # Repo-level agent instructions (this repo)
 ```
+
+`AGENTS.md` is capped at ~200 lines – behavioral rules only. Detail (commands, lookup tables, language-specific how-to) lives in `.agents/conventions/*.md` and is loaded on demand via gate lines like `MUST consult conventions/X.md before <trigger>`. See `conventions/agents-md-guidelines.md`.
+
+## Work artifacts
+
+Per-topic working files (problem / design / plan / output / review / reference) live in `~/.agents/artifacts/<slug>/` – a standalone local git repo, not synced via dotfiles. Schemas in `.agents/conventions/artifact-templates.md`. Skills `/propose`, `/execute`, `/document` create and maintain them; `/checkpoint` updates `output.md` on ship.
+
+First-time setup: `mkdir -p ~/.agents/artifacts && cd ~/.agents/artifacts && git init`.
 
 Machine-local overlays (never committed):
 

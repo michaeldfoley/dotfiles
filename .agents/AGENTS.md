@@ -19,10 +19,10 @@
 - After renames/refactors, grep for old name to catch stale references. Before broad find-replace, verify all match sites – short tokens hit unintended locations.
 - Before proposing new tools/aliases, grep existing config to avoid duplicating what's already there.
 - Verify platform capabilities before designing around them – don't assume features exist at system boundaries.
-- Shell scripts (dotfiles): verify BSD (macOS) vs GNU flag compatibility.
 - Flag performance when it matters – hot paths, large datasets, repeated calls. Don't optimize prematurely.
-- Shell startup (.zshrc, etc.): never source commands that hit the network. Auth/token refreshes → on-demand or lazy.
 - Go: default to unexported (lowercase). Only export when cross-package usage is confirmed.
+- Shell scripts: MUST consult `conventions/shell-scripts.md` before writing. Key: BSD vs GNU portability; `set -euo pipefail`; zshrc never hits the network at startup.
+- CLI tools: MUST consult `conventions/cli-guidelines.md` before writing. Key: stderr for messages, stdout for data; flags over positional args; errors say what + how to fix.
 
 ## Agent
 
@@ -53,12 +53,6 @@ Checkpoint is the only release path – route through /checkpoint skill. After c
 
 ### Splitting changes
 Prefer splitting logically independent changes (refactor, bug fix, feature) into stacked PRs.
-Stacked PRs use Graphite (`gt`), not raw git:
-- `gt create <branch> --parent <base>` not `git checkout -b` – always specify parent explicitly. `gt track` auto-detection picks long ancestor chains through stale branches
-- `gt submit` (`gtsub`) not `git push` + `gh pr create` – creates/updates PRs for entire stack
-- `gt restack` (`gtr`) not `git rebase` – rebases stack after changes
-- `gt sync` not `git fetch` – pulls latest main into Graphite tracking
-- `gt log short --stack` (`gts`) – view current stack
 
 **Proactive (preferred):** When I recognize a separable change while working, branch + commit it immediately before continuing.
 
@@ -66,7 +60,7 @@ Stacked PRs use Graphite (`gt`), not raw git:
 
 **Don't proactively split small mixed changes.** Check stacking signals first: Graphite-tracked branch, existing remote PR, or user-called-out multiple concerns. Without those, default to one PR.
 
-Stack order: foundational changes first. Dependent features stack on top. Each PR targets the branch below it (or main for first).
+Stacked PRs use Graphite (`gt`) – commands and stack ordering in `conventions/git-recipes.md`.
 
 ### Retro
 Auto-trigger – don't wait to be asked:
@@ -114,11 +108,9 @@ In all modes:
 - New repos → always `.gitignore` with `.DS_Store` immediately.
 - In implement mode: never commit without user confirmation – show diff, summarize, wait for go-ahead.
 - Before committing, verify current branch matches intent – check for open PRs and whether changes belong there.
-- Feature branches: prefer rewriting history (reset + force push) over revert commits. Reverts only on main/shared branches.
-- Never `git reset --soft main` – local main drifts. Use `HEAD~N` (relative) for squashing branch commits.
-- Don't auto-squash branch commits at checkpoint – distinct logical commits (move, fix, feature) tell a story. Ask first.
-- Git hygiene aliases (`dotfiles/shell/zshrc`): `gm` (main + pull + full cleanup), `gsync` (rebase onto main), `gclean` (cleanup only). Self-healing fetch auto-recovers stale refs. For Graphite stacks, use `gtr` not `gsync`.
-- Hygiene aliases are safe anytime. Push operations (`gpush`, `gpushup`) only through /checkpoint.
+- Push operations (`gpush`, `gpushup`) only through /checkpoint. Hygiene aliases (`gm`, `gsync`, `gclean`) are safe anytime.
+
+Stacking, history rewrite, hygiene alias details, `gh` quirks: see `conventions/git-recipes.md`.
 
 ## Pull Requests
 
@@ -137,9 +129,8 @@ In all modes:
   - [ ] <how to verify>
   ```
 - Reference issue numbers when applicable
-- After pushing follow-up commits, update the PR body to reflect new changes
+- After pushing follow-up commits, update the PR body to reflect new changes (see `conventions/git-recipes.md` for safe `gh pr edit` flow).
 - Descriptions = current intent, not changelog. No "what changed from v1" sections. Commit history handles evolution.
-- Before `gh pr edit --body`: always `gh pr view --json body` first, merge with existing content. GitHub has no edit history; overwriting destroys user content permanently.
 - Per-repo CLAUDE.md can override this template
 
 ## Memory
@@ -150,7 +141,9 @@ Model: session → INBOX.md (short-term) → triage → AGENTS.md (long-term)
 - INBOX.md (`~/.agents/INBOX.md`) = short-term capture. Local, never synced.
 - retro = capture process → INBOX.md. triage = promotion → AGENTS.md or discard.
 - Triage when INBOX.md exceeds ~10 items. Proactively check and suggest `/triage` when it's growing – don't wait to be asked.
-- Skills (shared workflows) live in `~/.agents/skills/` – both Claude Code and Cursor read from here.
+- Triage promotion rules (inline vs convention, gate pattern): see `conventions/agents-md-guidelines.md`.
+- Skills (shared workflows) live in `~/.agents/skills/` – both Claude Code and Cursor read from here. Designing/refining skills: see `conventions/skill-guidelines.md`.
+- Work artifacts (problem/design/plan/output/review/reference) live in `~/.agents/artifacts/<slug>/` – standalone local git repo. Schemas: `conventions/artifact-templates.md`. Created/maintained via /propose, /execute, /document.
 
 Capture triggers:
 - `log` / `idea: <thought>` → append to INBOX.md (date, context, idea)

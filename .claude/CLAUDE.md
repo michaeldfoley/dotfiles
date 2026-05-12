@@ -12,7 +12,10 @@
 
 ## Commands
 
-- `checkpoint` → build + test → update README if affected → split or ship → clean history → show diff + confirm → push + open PRs → win check → retro
+- `propose` → research + draft problem → design → plan at `~/.agents/artifacts/<slug>/`
+- `execute` → work through a plan, tick tasks, maintain output.md
+- `document` → write reference.md for a system/concept
+- `checkpoint` → build + test → update README if affected → split or ship → clean history → show diff + confirm → push + open PRs → update output.md status + PR link → win check → retro
 - `checkpoint amend` → amend last commit + force push + update PR body + retro
 - `retro` → review session for patterns, friction, insights → INBOX.md
 - `log` / `idea: <thought>` → append to INBOX.md (date, context, idea)
@@ -27,6 +30,6 @@
 - `~/.claude/local-CLAUDE.md` – local Claude Code overrides, never synced. Imported by CLAUDE.md
 - `~/.claude/INBOX.md` – local capture scratchpad, never synced
 - `~/.claude/sessions/` – saved conversation logs, never synced
-- Plan files: `~/.claude/plans/YYYY-MM-DD-<slug>.md`. Slug should be relevant to the plan changes. Track changes in git. Delete plans when PR is merged.
+- Plan files: `~/.agents/artifacts/<slug>/plan.md` (standalone local git repo). Slug is kebab-case, specific to the work; chronology in `created:` frontmatter. Created via /propose, worked via /execute. See `~/.agents/conventions/artifact-templates.md`. Update `status` to `shipped` or `abandoned` when done; keep the dir for history.
 
 @~/.claude/local-CLAUDE.md

@@ -36,6 +36,18 @@ git clone git@github.com:michaeldfoley/dotfiles.git ~/dotfiles
 bash ~/dotfiles/install.sh
 ```
 
+## Testing
+
+```bash
+bash tests/test-shellcheck.sh    # static analysis on bash scripts (auto-discovered)
+bash tests/test-entrypoints.sh   # syntax check on every shebang'd script
+bash tests/test-skills.sh        # SKILL.md frontmatter contracts
+bash tests/test-repo-contracts.sh # JSON + workflow validation
+bash tests/test-regressions.sh   # stable contracts (retired skills stay gone)
+```
+
+CI runs all five on every PR (`.github/workflows/ci.yml`). Install deps locally: `brew install shellcheck actionlint`.
+
 ## How it works
 
 - `~/.agents/AGENTS.md` — shared agent instructions, symlinked to this repo

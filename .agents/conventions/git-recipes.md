@@ -14,7 +14,7 @@ Use Graphite, not raw git, for stacks:
 
 Branch from `origin/main`. Stack order: foundational changes first; dependent features stack on top. Each PR targets the branch below it (or main for the first).
 
-## Hygiene aliases (`shell/zshrc`)
+## Hygiene aliases (personal shell config, not synced via this repo)
 
 - `gm` – switch to main, pull, full cleanup of merged branches
 - `gsync` – rebase current branch onto main (use `gtr` for Graphite stacks)

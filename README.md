@@ -13,6 +13,13 @@ install.sh                   # Sets up symlinks + installs fzf
 AGENTS.md                    # Repo-level agent instructions (this repo)
 ```
 
+Machine-local overlays (never committed):
+
+```
+~/.agents/local-AGENTS.md    # Local agent overrides (@imported at end of AGENTS.md)
+~/.claude/local-CLAUDE.md    # Local Claude Code overrides (@imported at end of CLAUDE.md)
+```
+
 ## Setup
 
 ```bash
@@ -25,7 +32,21 @@ bash ~/dotfiles/install.sh
 - `~/.agents/AGENTS.md` — shared agent instructions, symlinked to this repo
 - `~/.agents/skills/` — agent skills, symlinked to this repo (both Claude Code and Cursor discover here)
 - `~/.claude/CLAUDE.md` — Claude Code config, symlinked to this repo (@imports shared AGENTS.md)
+- `~/.agents/local-AGENTS.md`, `~/.claude/local-CLAUDE.md` — machine-local overlays, never synced. Imported at end of their globals so local rules override
 - **Cursor global prefs** — paste AGENTS.md content into Cursor Settings > Rules > User Rules (no file-based auto-load for global prefs; per-project prefs use `AGENTS.md` at project root, auto-discovered natively)
+
+### Load order / precedence
+
+Imports are concatenated inline; later content wins on conflict. Effective order when Claude Code starts:
+
+```
+1. .agents/AGENTS.md     (global, synced)
+2. local-AGENTS.md       (machine-local overlay)     ← overrides #1
+3. .claude/CLAUDE.md     (global, synced)
+4. local-CLAUDE.md       (machine-local overlay)     ← overrides #1–3
+```
+
+Use `local-*` for company-specific rules (branch naming, commit prefixes, internal tools) or per-machine tweaks that shouldn't ship in dotfiles.
 
 ## Preference distribution
 
@@ -35,6 +56,10 @@ Personal global prefs (synced via dotfiles):
   ├── Claude Code            @import via CLAUDE.md (native)
   ├── Cursor                 paste into User Rules (Settings UI, manual)
   └── Other tools            AGENTS.md at project root (native auto-discover)
+
+Machine-local overlays (never synced, override globals):
+  ~/.agents/local-AGENTS.md  ← @imported at end of AGENTS.md
+  ~/.claude/local-CLAUDE.md  ← @imported at end of CLAUDE.md
 
 Project-specific patterns (committed to each repo):
   <repo>/AGENTS.md           ← team-shared, per-project

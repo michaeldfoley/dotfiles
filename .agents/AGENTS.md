@@ -1,5 +1,3 @@
-@~/.agents/work-AGENTS.md
-
 ## Style
 
 - Extremely concise. Sacrifice grammar for concision.
@@ -161,3 +159,5 @@ Capture triggers:
 When capturing friction:
 - Self-resolve once. If reusable insight, suggest INBOX.md entry.
 - At capture time, note if INBOX.md is growing and nudge toward triage.
+
+@~/.agents/local-AGENTS.md

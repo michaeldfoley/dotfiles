@@ -24,6 +24,9 @@
 ## Setup
 
 - `~/.claude/CLAUDE.md` → symlinked from `~/dotfiles/.claude/CLAUDE.md` – only edit the dotfiles copy
+- `~/.claude/local-CLAUDE.md` – local Claude Code overrides, never synced. Imported by CLAUDE.md
 - `~/.claude/INBOX.md` – local capture scratchpad, never synced
 - `~/.claude/sessions/` – saved conversation logs, never synced
 - Plan files: `~/.claude/plans/YYYY-MM-DD-<slug>.md`. Slug should be relevant to the plan changes. Track changes in git. Delete plans when PR is merged.
+
+@~/.claude/local-CLAUDE.md

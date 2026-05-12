@@ -14,6 +14,7 @@
 - No over-engineering: no unnecessary abstractions, error handling, or features beyond what's asked. During planning, challenge each addition: does the caller already have this info?
 - Small-lift additions within the active task's domain (completions, aliases, etc.) – just include them. Don't leave obvious follow-ups for the user to ask about.
 - No adding comments/docstrings to untouched code.
+- `eslint-disable` / `eslint-disable-next-line` / `eslint-disable-line` – always include a comment explaining why. Bare disables are tech debt.
 - If a README exists and changes affect it, update it automatically.
 - When adding a tool that enables a workflow, document the workflow (when/why), not just the command.
 - After renames/refactors, grep for old name to catch stale references. Before broad find-replace, verify all match sites – short tokens hit unintended locations.
@@ -34,6 +35,7 @@
 - Ask before guessing paths/values – don't assume from directory listings.
 - Flag over/under-prompting: if user is over-specifying something obvious, say so. If under-specifying is causing rework, flag that too.
 - When working across repos, confirm target repo early.
+- When user references "a change I made" and `git status` doesn't show it, ask immediately: committed/staged/unstaged/stashed? Don't chase via git log/blame.
 - After disruptions (tool rejection, context restore, mode switch), verify actual state (git status, git diff, ls) before retrying.
 - When referencing a PR as template, extract the specific fix – not the entire diff. PRs often bundle unrelated changes.
 - Scripts/tools go directly in final home (e.g., `~/.local/bin/`). INBOX.md is for ideas/friction – not finished artifacts.
@@ -53,7 +55,7 @@ Checkpoint is the only release path – route through /checkpoint skill. After c
 ### Splitting changes
 Prefer splitting logically independent changes (refactor, bug fix, feature) into stacked PRs.
 Stacked PRs use Graphite (`gt`), not raw git:
-- `gt create <branch>` not `git checkout -b` – creates branch and tracks stack
+- `gt create <branch> --parent <base>` not `git checkout -b` – always specify parent explicitly. `gt track` auto-detection picks long ancestor chains through stale branches
 - `gt submit` (`gtsub`) not `git push` + `gh pr create` – creates/updates PRs for entire stack
 - `gt restack` (`gtr`) not `git rebase` – rebases stack after changes
 - `gt sync` not `git fetch` – pulls latest main into Graphite tracking
@@ -62,6 +64,8 @@ Stacked PRs use Graphite (`gt`), not raw git:
 **Proactive (preferred):** When I recognize a separable change while working, branch + commit it immediately before continuing.
 
 **Retroactive (at checkpoint):** If changes are already mixed, attempt to untangle. If too intertwined, ship as one PR and flag it.
+
+**Don't proactively split small mixed changes.** Check stacking signals first: Graphite-tracked branch, existing remote PR, or user-called-out multiple concerns. Without those, default to one PR.
 
 Stack order: foundational changes first. Dependent features stack on top. Each PR targets the branch below it (or main for first).
 

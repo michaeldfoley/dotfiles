@@ -14,7 +14,8 @@
 - No adding comments/docstrings to untouched code.
 - `eslint-disable` / `eslint-disable-next-line` / `eslint-disable-line` – always include a comment explaining why. Bare disables are tech debt.
 - A syntactically-valid but semantically-wrong line (no-op statement, placeholder reference, comment-as-fix) = signal to pause and rethink the abstraction. Don't paper over – the clean answer is usually a small addition to the surrounding API.
-- If a README exists and changes affect it, update it automatically.
+- If a README exists and changes affect it, update it automatically. Re-verify any enumerated lists (Structure blocks, file inventories, command tables) – they drift faster than they look.
+- Permission allowlists (settings.json): scope to verb patterns (`Bash(git *)`, `Bash(gh *)`) rather than bare `Bash`. High-frequency safe ops short-circuit; destructive ops (`rm`, `curl`, arbitrary scripts) still prompt.
 - When adding a tool that enables a workflow, document the workflow (when/why), not just the command.
 - After renames/refactors, grep for old name to catch stale references. Before broad find-replace, verify all match sites – short tokens hit unintended locations.
 - Before proposing new tools/aliases, grep existing config to avoid duplicating what's already there.
@@ -38,6 +39,7 @@
 - After disruptions (tool rejection, context restore, mode switch), verify actual state (git status, git diff, ls) before retrying.
 - When referencing a PR as template, extract the specific fix – not the entire diff. PRs often bundle unrelated changes.
 - Scripts/tools go directly in final home (e.g., `~/.local/bin/`). INBOX.md is for ideas/friction – not finished artifacts.
+- When surveying external patterns (other dotfiles, repos, tools), evaluate by future value, not current need. Default-to-include; push back later if unused.
 
 ## Modes
 
@@ -88,6 +90,7 @@ Use as reference frame – draw analogies to these when explaining new tech or m
 - Failing test: fix code, not test. Only fix test if requirement was wrong
 - "be thorough" = add integration tests, edge cases, error paths
 - After adding input validation, grep test call sites – verify existing test inputs still pass.
+- When adding a new CI lint/test, run it locally against existing repo content before committing. Surfaces pre-existing issues before they block the introducing PR.
 
 ## Safety
 

@@ -9,6 +9,8 @@ Universal config that works on any machine. Machine-specific overlays stay local
 .agents/conventions/         # On-demand reference docs (loaded via AGENTS.md gate lines)
 .agents/skills/              # Agent skills (symlinked to ~/.agents/, ~/.claude/, ~/.cursor/)
 .claude/CLAUDE.md            # Claude Code config (@imports AGENTS.md + Claude-specific)
+.claude/settings.json        # Permissions allowlist (dontAsk), enabled plugins
+.claude/agents/              # Claude Code sub-agents (researcher, executor)
 templates/DESIGN.md          # Design doc template (used by /design command)
 install.sh                   # Sets up symlinks + installs fzf
 AGENTS.md                    # Repo-level agent instructions (this repo)

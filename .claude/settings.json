@@ -1,0 +1,47 @@
+{
+  "respectGitignore": true,
+  "includeCoAuthoredBy": false,
+  "permissions": {
+    "allow": [
+      "Read",
+      "Glob",
+      "Grep",
+      "Edit",
+      "Write",
+      "WebFetch",
+      "WebSearch",
+      "ToolSearch",
+      "Task(Explore)",
+      "Task(Plan)",
+      "Task(Bash)",
+      "Task(general-purpose)",
+      "Task(claude-code-guide)",
+      "ListMcpResourcesTool",
+      "ReadMcpResourceTool",
+      "Bash(git *)",
+      "Bash(gh *)",
+      "Bash(gt *)",
+      "Bash(go *)",
+      "Bash(yarn *)",
+      "Bash(npm *)",
+      "Bash(pnpm *)",
+      "Bash(bzl *)",
+      "Bash(bazel *)",
+      "Bash(kubectl *)",
+      "Bash(brew *)",
+      "Bash(make *)",
+      "Bash(jq *)",
+      "Bash(yq *)",
+      "Bash(rg *)",
+      "Bash(chmod *)",
+      "Bash(mkdir *)",
+      "Bash(ln *)"
+    ],
+    "defaultMode": "dontAsk"
+  },
+  "enabledPlugins": {
+    "gopls-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true
+  }
+}

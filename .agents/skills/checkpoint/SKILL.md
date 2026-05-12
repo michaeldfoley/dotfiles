@@ -12,8 +12,9 @@ Self-contained workflow – execute steps fully, don't inject extra confirmation
 4. Clean up commit history (squash/reword as needed)
 5. Show diff, summarize what changed and why, confirm before committing
 6. Push branches, open PRs (use PR template from `~/.agents/AGENTS.md` > Pull Requests)
-7. Win check – evaluate session against promo-packet bar (see below). If it qualifies, draft entry and confirm before logging to `~/.agents/wins.md`
-8. Retro – run /retro
+7. If `~/.agents/artifacts/<slug>/` exists for this work: update `output.md` (PR link, branch, `status`) and `plan.md` frontmatter (`status: shipped` if all phases done)
+8. Win check – evaluate session against promo-packet bar (see below). If it qualifies, draft entry and confirm before logging to `~/.agents/wins.md`
+9. Retro – run /retro
 
 **`checkpoint amend`** = amend last commit + force push + update PR body + retro. Compound – execute all steps.
 

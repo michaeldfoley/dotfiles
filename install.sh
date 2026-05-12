@@ -32,6 +32,13 @@ ln -sfn "$DOTFILES/.claude/agents" ~/.claude/agents
 ln -sfn "$DOTFILES/.agents/skills" ~/.cursor/skills
 ln -sfn "$DOTFILES/.cursor/rules" ~/.cursor/rules
 
+# Gemini CLI – imports shared AGENTS.md
+mkdir -p ~/.gemini
+ln -sf "$DOTFILES/.gemini/GEMINI.md" ~/.gemini/GEMINI.md
+
+# Codex CLI – config.toml stays manual (merge from .codex/config.toml.example).
+# review-instructions.md is referenced by absolute path from config profiles.
+
 git config --global pull.rebase true
 
 echo "Done. Symlinked:"
@@ -44,3 +51,4 @@ echo "  ~/.claude/agents/ → $DOTFILES/.claude/agents/"
 echo "  ~/.claude/skills/ → $DOTFILES/.agents/skills/"
 echo "  ~/.cursor/skills/ → $DOTFILES/.agents/skills/"
 echo "  ~/.cursor/rules/ → $DOTFILES/.cursor/rules/"
+echo "  ~/.gemini/GEMINI.md → $DOTFILES/.gemini/GEMINI.md"

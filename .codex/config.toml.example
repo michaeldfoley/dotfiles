@@ -1,0 +1,14 @@
+# Codex CLI config skeleton. Do not symlink over ~/.codex/config.toml blindly;
+# merge the parts you want into your existing config.
+
+model = "gpt-5.4"
+model_reasoning_effort = "high"
+approval_policy = "never"
+sandbox_mode = "danger-full-access"
+
+# Independent reviewer profile. Invoke with `codex --profile dotfiles_review`.
+# Produces ~/.agents/artifacts/<slug>/review.md matching the /review skill schema.
+[profiles.dotfiles_review]
+model_reasoning_effort = "high"
+personality = "pragmatic"
+model_instructions_file = "~/dotfiles/.codex/review-instructions.md"

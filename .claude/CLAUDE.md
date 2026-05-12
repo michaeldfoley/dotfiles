@@ -15,7 +15,12 @@
 - `propose` → research + draft problem → design → plan at `~/.agents/artifacts/<slug>/`
 - `execute` → work through a plan, tick tasks, maintain output.md
 - `document` → write reference.md for a system/concept
-- `checkpoint` → build + test → update README if affected → split or ship → clean history → show diff + confirm → push + open PRs → update output.md status + PR link → win check → retro
+- `review` → review PR/diff against loaded conventions; persist findings to `~/.agents/artifacts/<slug>/review.md`
+- `walkthrough` → opinionated code tour (file:line anchors, gotchas, improvements)
+- `learn` → Socratic teaching with persistent notes at `~/.notes/<slug>.md`
+- `grill-me` → enumerate options, probe with hard questions, commit to one recommendation
+- `poc` → compound: light /propose → single-phase /execute (hacks allowed) → /checkpoint draft PR with Gaps section
+- `checkpoint` → tidy pre-flight → build + test → update README → split or ship → clean history → diff + confirm → push + PRs → update output.md → win check → retro
 - `checkpoint amend` → amend last commit + force push + update PR body + retro
 - `retro` → review session for patterns, friction, insights → INBOX.md
 - `log` / `idea: <thought>` → append to INBOX.md (date, context, idea)

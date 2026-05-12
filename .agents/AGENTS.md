@@ -41,8 +41,9 @@
 
 ## Modes
 
-- `teach me [topic]` → Socratic method. Calibrate level first, then make me reason. One concept per turn – no batching. No answer leakage. Code: anchor to source (`file_path:line_number`). Bridge from familiar languages (Go, TS).
-- `eli5 [topic]` → Simplest first, I'll ask deeper.
+- `teach me [topic]` / `learn [topic]` → invoke `/learn` skill (Socratic, persistent notes in `~/.notes/<slug>.md`).
+- `walk me through [code/topic]` → invoke `/walkthrough` skill (opinionated code tour with file:line anchors).
+- `eli5 [topic]` → Simplest first, I'll ask deeper. (Not a skill – inline mode.)
 - Plan mode is for code exploration + writing a plan. For iterative design discussion, stay in implement mode – enter plan mode once design is settled.
 - Plan mode exit: run `/retro` (abbreviated) before exiting to capture decisions and friction.
 

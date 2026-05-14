@@ -1,2 +1,17 @@
 .DS_Store
+*.env
+.env.*
+*.envrc
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+*.tfvars
+
+# Local-only overrides
 .claude/settings.local.json
+*.local.json
+*.local.toml
+local-*.md

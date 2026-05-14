@@ -30,7 +30,7 @@ ln -sfn "$DOTFILES/.claude/agents" ~/.claude/agents
 
 # Cursor discovery
 ln -sfn "$DOTFILES/.agents/skills" ~/.cursor/skills
-ln -sfn "$DOTFILES/.cursor/rules" ~/.cursor/rules
+[[ -d "$DOTFILES/.cursor/rules" ]] && ln -sfn "$DOTFILES/.cursor/rules" ~/.cursor/rules
 
 # Gemini CLI – imports shared AGENTS.md
 mkdir -p ~/.gemini
@@ -50,5 +50,5 @@ echo "  ~/.claude/settings.json → $DOTFILES/.claude/settings.json"
 echo "  ~/.claude/agents/ → $DOTFILES/.claude/agents/"
 echo "  ~/.claude/skills/ → $DOTFILES/.agents/skills/"
 echo "  ~/.cursor/skills/ → $DOTFILES/.agents/skills/"
-echo "  ~/.cursor/rules/ → $DOTFILES/.cursor/rules/"
+[[ -d "$DOTFILES/.cursor/rules" ]] && echo "  ~/.cursor/rules/ → $DOTFILES/.cursor/rules/"
 echo "  ~/.gemini/GEMINI.md → $DOTFILES/.gemini/GEMINI.md"

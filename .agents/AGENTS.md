@@ -15,7 +15,8 @@
 - `eslint-disable` / `eslint-disable-next-line` / `eslint-disable-line` – always include a comment explaining why. Bare disables are tech debt.
 - A syntactically-valid but semantically-wrong line (no-op statement, placeholder reference, comment-as-fix) = signal to pause and rethink the abstraction. Don't paper over – the clean answer is usually a small addition to the surrounding API.
 - If a README exists and changes affect it, update it automatically. Re-verify any enumerated lists (Structure blocks, file inventories, command tables) – they drift faster than they look.
-- Permission allowlists (settings.json): scope to verb patterns (`Bash(git *)`, `Bash(gh *)`) rather than bare `Bash`. High-frequency safe ops short-circuit; destructive ops (`rm`, `curl`, arbitrary scripts) still prompt.
+- Permission allowlists (settings.json): scope to verb patterns (`Bash(git *)`, `Bash(gh *)`) rather than bare `Bash`. High-frequency safe ops short-circuit; destructive ops (`rm`, `curl`, arbitrary scripts) still prompt. Under `dontAsk` mode, also allow read-only inventory ops (`find`, `ls`, `grep`, `rg`) so audits/surveys don't bounce silently.
+- Recovery/retry logic that issues multiple sequential RPCs against the same external object must handle the "object disappeared between RPCs" race on every call, not only the first. When reviewing, explicitly probe: "what if the object is deleted between call N and call N+1?"
 - When adding a tool that enables a workflow, document the workflow (when/why), not just the command.
 - After renames/refactors, grep for old name to catch stale references. Before broad find-replace, verify all match sites – short tokens hit unintended locations.
 - Before proposing new tools/aliases, grep existing config to avoid duplicating what's already there.

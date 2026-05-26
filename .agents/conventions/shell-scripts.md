@@ -39,3 +39,9 @@ dotfiles must work on macOS (BSD coreutils) and Linux (GNU). Verify before shipp
 
 - Never source commands that hit the network at startup. Auth/token refreshes: on-demand or lazy.
 - Conditional last lines: end with `true` to avoid exit-code leaks from the final branch.
+
+## Setup scripts (install.sh, bootstrap)
+
+- Never reference repo-internal paths that don't exist in the repo (no aspirational symlinks). A local env may have the missing dir so it works for the author, while a fresh checkout fails under `set -e`.
+- Guard optional directories with `[[ -d <path> ]]` or commit a placeholder so the path exists.
+- Test from a fresh checkout (`git clean -fdx` + reinstall) before merging – `set -e` aborts silently for downstream users.

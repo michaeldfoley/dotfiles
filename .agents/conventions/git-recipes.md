@@ -26,7 +26,7 @@ Push operations (`gpush`, `gpushup`) only through /checkpoint.
 ## History rewriting
 
 - Feature branches: prefer rewriting history (reset + force push) over revert commits. Reverts only on main/shared.
-- Never `git reset --soft main` – local main drifts. Use `HEAD~N` (relative) for squashing branch commits.
+- Never `git reset --soft main` or `git reset --soft origin/main` – local main drifts after rebases; `origin/main` drifts mid-session (other PRs land between fetches). Use `git reset --soft HEAD~N` (relative to your own commits) for squashing.
 - Don't auto-squash branch commits at /checkpoint – distinct logical commits (move, fix, feature) tell a story. Ask first.
 - `--force-with-lease` stales after rebase; on personal branches `--force` is fine.
 

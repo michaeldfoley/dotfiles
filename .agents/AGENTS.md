@@ -124,6 +124,8 @@ In all modes:
 
 Stacking, history rewrite, hygiene alias details, `gh` quirks: see `conventions/git-recipes.md`.
 
+- **Graphite `gt submit --stack` blocked by merged parent:** Aborts with "merged commits not contained in latest trunk" when a parent branch has merged but local trunk hasn't fast-forwarded. Fix: `git fetch origin <trunk>` then `gt move --base <trunk>` on the child, or run `gt sync` first.
+
 ## Pull Requests
 
 - Title: conventional commit format, under 70 chars

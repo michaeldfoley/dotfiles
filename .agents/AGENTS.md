@@ -24,6 +24,9 @@
 - Before proposing new tools/aliases, grep existing config to avoid duplicating what's already there.
 - Verify platform capabilities before designing around them – don't assume features exist at system boundaries.
 - Flag performance when it matters – hot paths, large datasets, repeated calls. Don't optimize prematurely.
+- TypeScript: when a callback only needs a subset of a type's fields, type the parameter as `Pick<T, 'field1' | 'field2'>`. Avoids requiring callers to construct fields they don't have.
+- React: `useEffectEvent` is for callbacks called from effects only. For callbacks used inside `useCallback` deps or passed to children, use a stable-ref wrapper (e.g. `useStableCallback` or equivalent) instead.
+- React: before adding a ref to stabilize a recursive closure, check if the callback's deps are already stable. Stable deps → stable callback → no ref needed.
 - Go: default to unexported (lowercase). Only export when cross-package usage is confirmed.
 - Shell scripts: MUST consult `conventions/shell-scripts.md` before writing. Key: BSD vs GNU portability; `set -euo pipefail`; zshrc never hits the network at startup.
 - CLI tools: MUST consult `conventions/cli-guidelines.md` before writing. Key: stderr for messages, stdout for data; flags over positional args; errors say what + how to fix.
@@ -95,6 +98,7 @@ Use as reference frame – draw analogies to these when explaining new tech or m
 - "be thorough" = add integration tests, edge cases, error paths
 - After adding input validation, grep test call sites – verify existing test inputs still pass.
 - When adding a new CI lint/test, run it locally against existing repo content before committing. Surfaces pre-existing issues before they block the introducing PR.
+- For high-stakes or architecture-heavy PRs, run `/dual-agents-review` before shipping. Codex and Claude surface different bug classes – neither alone catches everything.
 
 ## Safety
 
@@ -119,6 +123,8 @@ In all modes:
 - Push operations (`gpush`, `gpushup`) only through /checkpoint. Hygiene aliases (`gm`, `gsync`, `gclean`) are safe anytime.
 
 Stacking, history rewrite, hygiene alias details, `gh` quirks: see `conventions/git-recipes.md`.
+
+- **Graphite `gt submit --stack` blocked by merged parent:** Aborts with "merged commits not contained in latest trunk" when a parent branch has merged but local trunk hasn't fast-forwarded. Fix: `git fetch origin <trunk>` then `gt move --base <trunk>` on the child, or run `gt sync` first.
 
 ## Pull Requests
 

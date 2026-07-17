@@ -19,6 +19,8 @@
 - Recovery/retry logic that issues multiple sequential RPCs against the same external object must handle the "object disappeared between RPCs" race on every call, not only the first. When reviewing, explicitly probe: "what if the object is deleted between call N and call N+1?"
 - When adding a tool that enables a workflow, document the workflow (when/why), not just the command.
 - After renames/refactors, grep for old name to catch stale references. Before broad find-replace, verify all match sites – short tokens hit unintended locations.
+- Before adding a backward-compat re-export, grep for callers first. Zero callers → skip the shim; the cleanup is free.
+- If a formatter rewrites lines you didn't touch and there's no CI enforcement for that style, prefer the minimal diff. Don't bundle a wholesale reformat with a semantic change.
 - Before proposing new tools/aliases, grep existing config to avoid duplicating what's already there.
 - Verify platform capabilities before designing around them – don't assume features exist at system boundaries.
 - Flag performance when it matters – hot paths, large datasets, repeated calls. Don't optimize prematurely.
@@ -41,6 +43,7 @@
 - When referencing a PR as template, extract the specific fix – not the entire diff. PRs often bundle unrelated changes.
 - Scripts/tools go directly in final home (e.g., `~/.local/bin/`). INBOX.md is for ideas/friction – not finished artifacts.
 - When surveying external patterns (other dotfiles, repos, tools), evaluate by future value, not current need. Default-to-include; push back later if unused.
+- When goal = match sibling service/config X exactly, default to removing constraints not preserving. Justify each constraint kept against the sibling's behavior, not against fear of change.
 
 ## Modes
 

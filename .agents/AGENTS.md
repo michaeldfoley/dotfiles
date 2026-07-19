@@ -19,6 +19,7 @@
 - Recovery/retry logic that issues multiple sequential RPCs against the same external object must handle the "object disappeared between RPCs" race on every call, not only the first. When reviewing, explicitly probe: "what if the object is deleted between call N and call N+1?"
 - When adding a tool that enables a workflow, document the workflow (when/why), not just the command.
 - After renames/refactors, grep for old name to catch stale references. Before broad find-replace, verify all match sites – short tokens hit unintended locations.
+- When adding a field to a shared type, grep for all synthesis/construction functions that build instances of that type and verify the new field is explicitly copied. Silent omission is the common failure mode.
 - Before adding a backward-compat re-export, grep for callers first. Zero callers → skip the shim; the cleanup is free.
 - If a formatter rewrites lines you didn't touch and there's no CI enforcement for that style, prefer the minimal diff. Don't bundle a wholesale reformat with a semantic change.
 - Before proposing new tools/aliases, grep existing config to avoid duplicating what's already there.

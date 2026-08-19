@@ -40,6 +40,7 @@
 - Hang detection: run potentially-slow commands in background. Poll output – if no new output for 15s (with verbose/debug flags) or 30s (without), assume hung. Kill, retry with timeout, or fall back.
 - Exit loops if no progress toward verifiable goal. Never loop 3+ times on same failure – stop, note pattern, ask.
 - Ask before guessing paths/values – don't assume from directory listings.
+- When an investigation surfaces a related-but-unrequested bug (different app/package than the one reported), report it and ask before fixing – even if the fix is small and clearly correct. Scope belongs to the user, not to "is this a good idea."
 - Flag over/under-prompting: if user is over-specifying something obvious, say so. If under-specifying is causing rework, flag that too.
 - When working across repos, confirm target repo early.
 - When user references "a change I made" and `git status` doesn't show it, ask immediately: committed/staged/unstaged/stashed? Don't chase via git log/blame.

@@ -11,6 +11,8 @@ Use Graphite, not raw git, for stacks:
 - `gt restack` (`gtr`) – rebases stack after changes. Not `git rebase`.
 - `gt sync` – pulls latest main into Graphite tracking. Not `git fetch`.
 - `gt log short --stack` (`gts`) – view current stack.
+- `gt create <branch>` – always include the `/` separator explicitly in the branch name (e.g. `gt create michael.foley/SDA-1234/foo`), even when `branchPrefix` is configured. Graphite concatenates the configured prefix with the given name without inserting a separator — `gt create SDA-1234/foo` under prefix `michael.foley` produces the malformed `michael.foleySDA-1234/foo`. If it happens anyway, fix with `git branch -m <correct-name>` + `gt track --parent <parent>`.
+- `gt submit --draft`/`--stack` on an already-submitted PR does not reliably preserve or restore draft status — a PR that was ready-for-review can come back ready-for-review even when `--draft` is passed on a later resubmit. After any submit where draft status matters, verify with `gh pr view <number> --json isDraft` and fix with `gh pr ready <number> --undo` if needed.
 
 Branch from `origin/main`. Stack order: foundational changes first; dependent features stack on top. Each PR targets the branch below it (or main for the first).
 

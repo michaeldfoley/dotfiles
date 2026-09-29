@@ -39,6 +39,7 @@
 - CLI tools (`gt`, `bzl`, etc.): always pass `--no-interactive` or equivalent. Never let a CLI block on stdin.
 - Hang detection: run potentially-slow commands in background. Poll output – if no new output for 15s (with verbose/debug flags) or 30s (without), assume hung. Kill, retry with timeout, or fall back.
 - Exit loops if no progress toward verifiable goal. Never loop 3+ times on same failure – stop, note pattern, ask.
+- When an external mutation command (e.g. `gh api`, session-backed CLI calls) returns a session ID without an exit code, poll it to completion before deciding it failed. Retrying immediately can duplicate comments or other writes.
 - Ask before guessing paths/values – don't assume from directory listings.
 - When an investigation surfaces a related-but-unrequested bug (different app/package than the one reported), report it and ask before fixing – even if the fix is small and clearly correct. Scope belongs to the user, not to "is this a good idea."
 - Flag over/under-prompting: if user is over-specifying something obvious, say so. If under-specifying is causing rework, flag that too.
@@ -109,6 +110,7 @@ In all modes:
 - Never `git push --force` to main/master.
 - Never `git reset --hard` or `checkout .` with uncommitted work; stash first.
 - Never delete branches without confirming they're merged.
+- Signing failure (e.g. SSH signing agent unreachable) is a hard stop, never a fallback to an unsigned commit. Repair the effective signing-agent socket or ask the user; never pass `--no-gpg-sign` or set `commit.gpgsign=false` to work around it.
 - Flag sensitive values (API keys, tokens) in files before committing/pushing – even if user is driving.
 - Before creating repos in an org, verify permissions and constraints (branch protection, deletion, visibility).
 
@@ -132,6 +134,7 @@ Stacking, history rewrite, hygiene alias details, `gh` quirks: see `conventions/
 
 - Title: conventional commit format, under 70 chars
 - Title: describe the capability/behavior change, not the file diff
+- Title scope: derive from the service name in `service.datadog.yaml` if present, else the package name. For scoped npm packages (`@scope/package`), use only the scope – e.g. `@mosaic-toolkit/datadog-auth` → `mosaic-toolkit`.
 - Body: lead with why and what it enables. Explain the design/system – not line-by-line diff tables
 - Body structure:
   ```

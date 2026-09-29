@@ -6,6 +6,7 @@ description: Build, test, split/ship PRs, commit, push, win check, retro. The on
 
 Self-contained workflow – execute steps fully, don't inject extra confirmation gates beyond what's built in.
 
+0. **Bootstrap – resolve instruction includes before any mutation.** Read `~/.agents/AGENTS.md`, then explicitly read every `@`-referenced file it includes (e.g. `~/.agents/local-AGENTS.md`) before branch creation, commit, push, or PR creation. This has recurred five times (wrong branch/commit format discovered only after the fact, requiring amend + force-with-lease). Do not treat an `@include` as satisfied by having read it in a prior turn of a *different* session – re-resolve at the start of each checkpoint. For tracked DataDog work, this is where the Jira ID and `michael.foley/<jira-id>/<slug>` branch format come from – obtain the Jira ID before branching if not already known.
 1. **Pre-flight (tidy)** – read-only branch health check. Abort on P0, warn on P1, info on P2:
    - **P0 Branch guard** – not on main/master.
    - **P0 Staged file audit** – `git diff --cached --stat`. Flag files outside this branch's concern. If `~/.agents/artifacts/<slug>/` has `plan.md`/`output.md`, compare staged files against stated scope.

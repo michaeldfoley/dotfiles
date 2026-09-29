@@ -41,6 +41,7 @@
 - Exit loops if no progress toward verifiable goal. Never loop 3+ times on same failure – stop, note pattern, ask.
 - When an external mutation command (e.g. `gh api`, session-backed CLI calls) returns a session ID without an exit code, poll it to completion before deciding it failed. Retrying immediately can duplicate comments or other writes.
 - Ask before guessing paths/values – don't assume from directory listings.
+- When starting non-trivial fix work (multiple files, or any generated/large file) directly on `main`/`preprod` with no branch, create the branch immediately – don't defer the check to checkpoint. Retroactive stash/branch/rebase is avoidable, and uncommitted large-file changes sitting on main all session is a needless risk.
 - When an investigation surfaces a related-but-unrequested bug (different app/package than the one reported), report it and ask before fixing – even if the fix is small and clearly correct. Scope belongs to the user, not to "is this a good idea."
 - Flag over/under-prompting: if user is over-specifying something obvious, say so. If under-specifying is causing rework, flag that too.
 - When working across repos, confirm target repo early.

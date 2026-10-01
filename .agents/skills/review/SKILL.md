@@ -9,7 +9,7 @@ Structured code review. Domain-aware via `~/.agents/conventions/`. Persists to t
 
 ## Bootstrap
 
-1. Read `~/.agents/AGENTS.md` for behavioral rules.
+1. Read `~/.agents/AGENTS.md` for behavioral rules, then separately read `~/.agents/local-AGENTS.md` if it exists – it supersedes AGENTS.md on conflict.
 2. Load relevant conventions from `~/.agents/conventions/` based on diff content (e.g., `cli-guidelines.md` for CLI code, `shell-scripts.md` for shell, `git-recipes.md` for git tooling).
 3. Determine target: PR URL, branch diff, or staged changes.
 4. Resolve slug: derive from branch name (`feat/foo` → `foo`), explicit `--topic <slug>`, or repo name. Create `~/.agents/artifacts/<slug>/` if missing.

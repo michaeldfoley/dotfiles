@@ -9,7 +9,7 @@ Execute a phased plan. Each phase is independently valuable and testable.
 
 ## Bootstrap
 
-1. Read `~/.agents/AGENTS.md` for conventions (commit style, PR template, safety).
+1. Read `~/.agents/AGENTS.md` for conventions (commit style, PR template, safety), then separately read `~/.agents/local-AGENTS.md` if it exists – it holds machine-local/work-specific overrides and supersedes AGENTS.md on conflict.
 2. Determine slug from $ARGUMENTS, or infer from conversation.
 3. Check `~/.agents/artifacts/<slug>/`:
    - **`plan.md` exists**: read it, find next unchecked phase, inspect `output.md` / `review.md` if present, resume there.
